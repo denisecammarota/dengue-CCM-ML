@@ -66,4 +66,4 @@ daily_single_ag <- daily_single_ag %>% group_by(EPI_WEEK, EPI_YEAR) %>% summaris
 daily_single_ag <- daily_single_ag %>% mutate(tplot = EPI_YEAR + (EPI_WEEK/52))
 daily_single_ag <- daily_single_ag %>% arrange(tplot)
 
-save(daily_single_ag, file = 'RJ/climate_RJ.RData')
+save(daily_single_ag, file = 'SP/climate_SP.RData')
