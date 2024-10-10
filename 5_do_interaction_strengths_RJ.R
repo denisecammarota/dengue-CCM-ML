@@ -22,6 +22,7 @@ t_lambda <- 0 # ok
 t_ptotal <- 15 # ok 
 
 df_total_aux <- df_total
+epiweeks_og <- df_total$EPI_WEEK
 df_total_aux <- df_total_aux %>% ungroup() %>% mutate(CASES = lead(CASES,15),
                                                       t_min = lead(t_min,6),
                                                       t_max = lead(t_max,5),
@@ -67,24 +68,24 @@ coeffs_lambda <-  smap$coefficients$`∂CASES/∂LAMBDA`
 # maximum temperature
 a <- coeffs_tmax
 b <- df_total_aux_2$t_max
-c <- df_total_aux_2$EPI_WEEK
-df_fin <- data.frame(int_coeff = a, t_max = b, week = df_total_aux_2$EPI_WEEK)
+c <- lead(epiweeks_og,10)[1:501]
+df_fin <- data.frame(int_coeff = a, t_max = b, week = c)
 ggplot(df_fin, aes(x = t_max, y = int_coeff, color = week)) + geom_point() + theme_bw()  + 
   scale_color_viridis()
 
 # minimum temperature
 a <- coeffs_tmin
 b <- df_total_aux_2$t_min
-c <- df_total_aux_2$EPI_WEEK
-df_fin <- data.frame(int_coeff = a, t_min = b, week = df_total_aux_2$EPI_WEEK)
+c <- lead(epiweeks_og,9)[1:501]
+df_fin <- data.frame(int_coeff = a, t_min = b, week = c)
 ggplot(df_fin, aes(x = t_min, y = int_coeff, color = week)) + geom_point() + theme_bw()  + 
   scale_color_viridis()
 
 # max relative humidity
 a <- coeffs_rhmax
 b <- df_total_aux_2$rh_max
-c <- df_total_aux_2$EPI_WEEK
-df_fin <- data.frame(int_coeff = a, rh_max = b, week = df_total_aux$EPI_WEEK)
+c <- lead(epiweeks_og,1)[1:501]
+df_fin <- data.frame(int_coeff = a, rh_max = b, week = c)
 ggplot(df_fin, aes(x = rh_max, y = int_coeff, color = week)) + geom_point() + theme_bw()  + 
   scale_color_viridis()
 
@@ -92,16 +93,16 @@ ggplot(df_fin, aes(x = rh_max, y = int_coeff, color = week)) + geom_point() + th
 # min relative humidity
 a <- coeffs_rhmin
 b <- df_total_aux_2$rh_min
-c <- df_total_aux_2$EPI_WEEK
-df_fin <- data.frame(int_coeff = a, rh_min = b, week = df_total_aux$EPI_WEEK)
+c <- lead(epiweeks_og,3)[1:501]
+df_fin <- data.frame(int_coeff = a, rh_min = b, week = c)
 ggplot(df_fin, aes(x = rh_min, y = int_coeff, color = week)) + geom_point() + theme_bw()  + 
   scale_color_viridis()
 
 # lambda 
 a <- coeffs_lambda
 b <- df_total_aux_2$LAMBDA
-c <- df_total_aux_2$EPI_WEEK
-df_fin <- data.frame(int_coeff = a, lambda = b, week = df_total_aux$EPI_WEEK)
+c <- lead(epiweeks_og,0)[1:501]
+df_fin <- data.frame(int_coeff = a, lambda = b, week = c)
 ggplot(df_fin, aes(x = lambda, y = int_coeff, color = week)) + geom_point() + theme_bw()  + 
   scale_color_viridis()
 

@@ -73,10 +73,10 @@ summary(dengue.memmodel)
 plot(dengue.memmodel)
 
 # Plotting the whole thing ####################################################
-thr_preepi <- 5.2
-thr_medium <- 1.0
-thr_high <- 16.5
-thr_vhigh <- 687.83
+thr_preepi <- 19.14
+thr_medium <- 2.35
+thr_high <- 52.54
+thr_vhigh <- 207.42
 
 df_santos_serie <- df_santos_serie %>% mutate(tplot = EPI_YEAR + EPI_WEEK/52)
 ggplot(df_santos_serie, aes(x = tplot, y = CASES_100K)) + geom_line() + 
