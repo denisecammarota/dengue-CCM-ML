@@ -60,9 +60,10 @@ df_santos['CASES_100K'] <- (df_santos['CASES']/df_santos['Pop_residente'])*(10**
 df_santos_serie <- df_santos 
 
 # Putting this into form for memmodel #########################################
-df_santos <- df_santos %>% filter(EPI_WEEK <= 40)
-df_santos <- df_santos %>% select(EPI_YEAR, EPI_WEEK, CASES_100K)
-df_santos <- df_santos %>% pivot_wider(names_from = EPI_YEAR, values_from = CASES_100K)
+df_santos <- df_santos %>% mutate(season = ifelse(EPI_WEEK <= 40, EPI_YEAR, EPI_YEAR - 1))
+#df_santos <- df_santos %>% filter(EPI_WEEK <= 40)
+df_santos <- df_santos %>% select(season, EPI_WEEK, CASES_100K)
+df_santos <- df_santos %>% pivot_wider(names_from = season, values_from = CASES_100K)
 df_santos[is.na(df_santos)] <- 0  
 rm(df_aux,p,pop)
 df_santos <- df_santos %>% select(!c(EPI_WEEK))
@@ -73,10 +74,10 @@ summary(dengue.memmodel)
 plot(dengue.memmodel)
 
 # Plotting the whole thing ####################################################
-thr_preepi <- 19.14
-thr_medium <- 2.35
-thr_high <- 52.54
-thr_vhigh <- 207.42
+thr_preepi <- 17.42
+thr_medium <- 3.30
+thr_high <- 53.52
+thr_vhigh <- 183.44
 
 df_santos_serie <- df_santos_serie %>% mutate(tplot = EPI_YEAR + EPI_WEEK/52)
 ggplot(df_santos_serie, aes(x = tplot, y = CASES_100K)) + geom_line() + 

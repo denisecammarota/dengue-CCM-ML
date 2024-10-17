@@ -10,14 +10,14 @@ load('RJ/dataset_RJ.RData')
 # Using CCM results ##############################################
 
 df_total_aux <- df_total
-df_total_aux <- df_total_aux %>% ungroup() %>% mutate(CASES = lead(CASES, 15),
-                                                      EPI_WEEK = lead(EPI_WEEK, 15),
-                                                      EPI_YEAR = lead(EPI_YEAR, 15),
-                                                      tplot = lead(tplot, 15),
-                                                      rh_max = lead(rh_max, 1),
-                                                      rh_min = lead(rh_min, 3),
-                                                      t_min = lead(t_min, 6),
-                                                      t_max = lead(t_max, 5),
+df_total_aux <- df_total_aux %>% ungroup() %>% mutate(CASES = lead(CASES, 18),
+                                                      EPI_WEEK = lead(EPI_WEEK, 18),
+                                                      EPI_YEAR = lead(EPI_YEAR, 18),
+                                                      tplot = lead(tplot, 18),
+                                                      rh_max = lead(rh_max, 0),
+                                                      rh_min = lead(rh_min, 16),
+                                                      t_min = lead(t_min, 12),
+                                                      t_max = lead(t_max, 8),
                                                       LAMBDA = lead(LAMBDA, 15))
 
 df_total_aux <- df_total_aux %>%
@@ -50,8 +50,8 @@ df_total_aux <- df_total_aux %>% mutate(label =
 )
 
 # Saving dataset for ML ##################################################
-save(df_total_aux, file = 'RJ/dataset_ML_RJ.RData')
-write_csv(df_total_aux, 'RJ/dataset_ML_RJ.csv')
+save(df_total_aux, file = 'RJ/dataset_ML_RJ_CC.RData')
+write_csv(df_total_aux, 'RJ/dataset_ML_RJ_CC.csv')
 
 
 
