@@ -48,3 +48,4 @@ a$lag[which.max(a$acf)]
 
 a <- ccf(df_total$LAMBDA, df_total$CASES)
 a$lag[which.max(a$acf)]
+

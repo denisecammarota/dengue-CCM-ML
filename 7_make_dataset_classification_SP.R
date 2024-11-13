@@ -10,23 +10,26 @@ load('SP/dataset_SP.RData')
 # Using CCM results ##############################################
 
 df_total_aux <- df_total
-df_total_aux <- df_total_aux %>% ungroup() %>% mutate(CASES = lead(CASES, 16),
-                                                      EPI_WEEK = lead(EPI_WEEK, 16),
-                                                      EPI_YEAR = lead(EPI_YEAR, 16),
-                                                      tplot = lead(tplot, 16),
-                                                      rh_max = lead(rh_max, 15),
-                                                      rh_min = lead(rh_min, 15),
-                                                      t_min = lead(t_min, 6),
-                                                      LAMBDA = lead(LAMBDA, 16))
+df_total_aux <- df_total_aux %>% ungroup() %>% mutate(CASES = lead(CASES, 19),
+                                                      EPI_WEEK = lead(EPI_WEEK, 19),
+                                                      EPI_YEAR = lead(EPI_YEAR, 19),
+                                                      tplot = lead(tplot, 19),
+                                                      t_max = lead(t_max, 7),
+                                                      t_min = lead(t_min, 2),
+                                                      rh_max = lead(rh_max, 10),
+                                                      rh_min = lead(rh_min, 0),
+                                                      p_total = lead(p_total, 19),
+                                                      LAMBDA = lead(LAMBDA, 19))
 
 df_total_aux <- df_total_aux %>%
   mutate(rh_max_lag = rh_max,
          rh_min_lag = rh_min,
          t_min_lag = t_min,
          t_max_lag = t_max, 
+         p_total_lag = p_total,
          LAMBDA_lag = LAMBDA) %>% 
   select(EPI_YEAR, EPI_WEEK, tplot, CASES, rh_max_lag, rh_min_lag,
-         t_min_lag, t_max_lag, LAMBDA_lag)
+         t_min_lag, t_max_lag, p_total_lag, LAMBDA_lag)
 
 # Calculating with size of the population ################################
 pop <- read.csv2('SP/pop_SP.csv')
@@ -38,8 +41,8 @@ df_total_aux <- df_total_aux %>% drop_na()
 rm(pop, df_total)
 
 # Calculating with the epidemic thresholds #################################
-thr_pre <- 5.2
-thr_high <- 16.15
+thr_pre <- 5.11
+thr_high <- 16.60
 
 df_total_aux <- df_total_aux %>% mutate(label =
   case_when(CASES_100K <= thr_pre ~ 'Pre',

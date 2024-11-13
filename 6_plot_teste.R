@@ -74,6 +74,11 @@ summary(dengue.memmodel)
 plot(dengue.memmodel)
 
 # Plotting the whole thing ####################################################
+#thr_preepi <- 5.11
+#thr_medium <- 1.00
+#thr_high <- 16.60
+#thr_vhigh <- 57.54
+
 thr_preepi <- 17.42
 thr_medium <- 3.30
 thr_high <- 53.52

@@ -33,8 +33,7 @@ df_santos['LAMBDA_2'] <- rollapply(df_santos['CASES'], width = ws2, FUN = functi
 
 
 # Filtrating the weeks of interest #########
-df_santos <- df_santos %>% filter(tplot >= (2012 + (6/52))) %>% 
-  filter(tplot <= (2021 + (51/52)))
+df_santos <- df_santos %>% filter(EPI_YEAR <= (2022))
 
 save(df_santos, file = 'RJ/cases_RJ.RData')
 

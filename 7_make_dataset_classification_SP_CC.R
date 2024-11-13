@@ -40,8 +40,8 @@ df_total_aux <- df_total_aux %>% drop_na()
 rm(pop, df_total)
 
 # Calculating with the epidemic thresholds #################################
-thr_pre <- 5.2
-thr_high <- 16.15
+thr_pre <- 5.11
+thr_high <- 16.60
 
 df_total_aux <- df_total_aux %>% mutate(label =
   case_when(CASES_100K <= thr_pre ~ 'Pre',

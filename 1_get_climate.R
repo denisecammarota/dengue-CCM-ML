@@ -26,7 +26,7 @@ daily_single_ag <- get_power(
   community = "ag",
   lonlat = c(long, lat),
   pars = c("RH2M", "T2M", "PRECTOTCORR"),
-  dates = c("2012-02-05", "2021-12-25"),
+  dates = c("2001-01-01", "2022-12-31"),
   temporal_api = "hourly"
 )
 
@@ -42,7 +42,8 @@ daily_single_ag <- daily_single_ag %>% group_by(YEAR, MO, DY) %>%
 daily_single_ag <- daily_single_ag %>% ungroup()
 
 daily_single_ag <- daily_single_ag %>% 
-  mutate(YYYYMMDD = paste0(YEAR,'-',MO,'-',DY))
+  mutate(YYYYMMDD = paste0(YEAR,'-',MO,'-',DY)) %>% 
+  mutate(YYYYMMDD = as.Date(YYYYMMDD))
 
 # Cleaning this and adding the epidemiological week #####
 daily_single_ag <- daily_single_ag %>% mutate(EPI_WEEK = epiweek(YYYYMMDD),
@@ -66,4 +67,4 @@ daily_single_ag <- daily_single_ag %>% group_by(EPI_WEEK, EPI_YEAR) %>% summaris
 daily_single_ag <- daily_single_ag %>% mutate(tplot = EPI_YEAR + (EPI_WEEK/52))
 daily_single_ag <- daily_single_ag %>% arrange(tplot)
 
-save(daily_single_ag, file = 'SP/climate_SP.RData')
+save(daily_single_ag, file = 'RJ/climate_RJ.RData')
