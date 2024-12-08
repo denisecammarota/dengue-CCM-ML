@@ -32,6 +32,7 @@ df_total_aux <- df_total_aux %>%
 
 # Calculating with size of the population ################################
 pop <- read.csv2('RJ/pop_RJ.csv')
+pop <- pop %>% add_row(Ano = 2022, Pop_residente = 6775561)
 df_total_aux <- df_total_aux %>% left_join(pop, by = join_by(EPI_YEAR == Ano))
 df_total_aux <- df_total_aux %>% mutate(CASES_100K = (CASES/Pop_residente)*(10**5))
 df_total_aux <- df_total_aux %>% select(!Pop_residente)
@@ -40,8 +41,8 @@ df_total_aux <- df_total_aux %>% drop_na()
 rm(pop, df_total)
 
 # Calculating with the epidemic thresholds #################################
-thr_pre <- 17.42
-thr_high <- 53.52
+thr_pre <- 5.23
+thr_high <- 60.33
 
 df_total_aux <- df_total_aux %>% mutate(label =
   case_when(CASES_100K <= thr_pre ~ 'Pre',
